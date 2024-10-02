@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Administrator panel</title>
+</head>
+<body>
+<div id="intro">
+    <div class="mx-auto p-5">
+        <div class="d-flex justify-content-evenly flex-column">
+            <div class="card w-50 p-3">
+                <div class="card-body">
+                    <h2 style="color: white" th:text="|Zarządzaj ${username}|">Nazwa użytkownika</h2>
+                </div>
+            </div>
+            <div class="card w-50 p-3">
+                <div class="card-body">
+                    <h2 style="color: white">Zarządzaj rolami</h2>
+                    <h3 th:text="'Administrator ' + ${isAdmin}">Rola</h3>
+                    <div class="d-flex flex-row">
+                        <form th:action="@{${'/update-role?username=' + username}}" method="post">
+                            <button class="btn btn-primary" type="submit">Nadaj uprawnienia</button>
+                        </form>
+                        <form th:action="@{${'/delete-role?username=' + username}}" method="post">
+                            <button class="btn btn-primary" type="submit">Usuń uprawnienia</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card w-50 p-3">
+                <div class="card-body">
+                    <h2 style="color: white"><a th:href="@{${'/delete?username=' + username}}">Usuń użytkownika</a></h2>
+                </div>
+            </div>
+            <div class="card w-50 p-3">
+                <div class="card-body">
+                    <h2 style="color: white"><a href="/admin-page">Powrót do panelu adminictracji</a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

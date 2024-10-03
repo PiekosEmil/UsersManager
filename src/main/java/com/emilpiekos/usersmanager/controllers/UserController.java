@@ -21,11 +21,8 @@ public class UserController {
 
     @GetMapping("/")
     public String userPage(@RequestParam(required = false) String username, Model model) {
-        boolean isAdmin = SecurityContextHolder.getContext().getAuthentication()
-                .getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentUsername", currentUsername);
-        model.addAttribute("isAdmin", isAdmin);
         return "user-page";
     }
 

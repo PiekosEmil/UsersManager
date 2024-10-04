@@ -1,7 +1,6 @@
 package com.emilpiekos.usersmanager.controllers;
 
 import com.emilpiekos.usersmanager.user.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +11,11 @@ import java.util.Map;
 @RestController
 public class RestApiController {
 
-    @Autowired
-    private UsersService usersService;
+    private final UsersService usersService;
+
+    public RestApiController(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
     @GetMapping("/api/check-username")
     public Map<String, String> checkUsername(@RequestParam String username) {

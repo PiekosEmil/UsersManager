@@ -3,7 +3,7 @@ package com.emilpiekos.usersmanager.controllers;
 import com.emilpiekos.usersmanager.role.UserRoleService;
 import com.emilpiekos.usersmanager.user.User;
 import com.emilpiekos.usersmanager.user.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @Controller
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
-    @Autowired
-    UsersService usersService;
+    private final UsersService usersService;
+    private final UserRoleService userRoleService;
 
-    @Autowired
-    UserRoleService userRoleService;
+    public AdminController(UsersService usersService, UserRoleService userRoleService) {
+        this.usersService = usersService;
+        this.userRoleService = userRoleService;
+    }
 
     @GetMapping("/admin-page")
     public String adminPanel(Model model) {

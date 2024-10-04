@@ -3,7 +3,6 @@ package com.emilpiekos.usersmanager.role;
 import com.emilpiekos.usersmanager.user.User;
 import com.emilpiekos.usersmanager.user.UsersRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,11 +10,13 @@ import java.util.Optional;
 @Service
 public class UserRoleService {
 
-    @Autowired
-    private UserRoleRepository userRoleRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final UsersRepository usersRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
+    public UserRoleService(UserRoleRepository userRoleRepository, UsersRepository usersRepository) {
+        this.userRoleRepository = userRoleRepository;
+        this.usersRepository = usersRepository;
+    }
 
     public void addAdminRole(Long userId) {
         User user = usersRepository.findUserById(userId)

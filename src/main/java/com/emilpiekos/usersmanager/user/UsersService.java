@@ -2,7 +2,6 @@ package com.emilpiekos.usersmanager.user;
 
 import com.emilpiekos.usersmanager.role.Role;
 import com.emilpiekos.usersmanager.role.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +12,8 @@ import java.util.Optional;
 @Service
 public class UsersService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UsersRepository usersRepository;
 
     public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;

@@ -1,7 +1,6 @@
 package com.emilpiekos.usersmanager.user;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,8 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UsersService usersService;
+    private final UsersService usersService;
+
+    public CustomUserDetailsService(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
     @Transactional
     @Override

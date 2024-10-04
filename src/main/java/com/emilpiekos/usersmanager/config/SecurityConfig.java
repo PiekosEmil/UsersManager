@@ -2,6 +2,7 @@ package com.emilpiekos.usersmanager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -12,6 +13,7 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -23,12 +25,6 @@ public class SecurityConfig {
                         .requestMatchers("/script/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/send-registration-form").permitAll()
-                        .requestMatchers("/user-settings").authenticated()
-                        .requestMatchers("/save-settings").authenticated()
-                        .requestMatchers("/admin-page").hasRole("ADMIN")
-                        .requestMatchers("/update-role").hasRole("ADMIN")
-                        .requestMatchers("/delete-role").hasRole("ADMIN")
-                        .requestMatchers("/manage-user").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**")
@@ -46,7 +42,6 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        return passwordEncoder;
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

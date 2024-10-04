@@ -35,4 +35,14 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update User u set u.password = :password where u.username = :username")
     void setPasswordWhereUsername(@Param("username") String username, @Param("password") String password);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("update User u set u.email = :email where u.username = :username")
+    void setEmailWhereUsername(@Param("username") String username, @Param("email") String email);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("update User u set u.phoneNumber = :phoneNumber where u.username = :username")
+    void setPhoneNumberWhereUsername(@Param("username") String username, @Param("phoneNumber") Long phoneNumber);
 }

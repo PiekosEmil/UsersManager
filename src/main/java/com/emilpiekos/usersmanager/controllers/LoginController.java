@@ -15,7 +15,8 @@ public class LoginController {
     @GetMapping("/login")
     public String login(@RequestParam(required = false, name = "logout") String logout,
                         @RequestParam(required = false, name = "error") String error,
-                        @RequestParam(required = false, name = "registerSuccess") String success) {
+                        @RequestParam(required = false, name = "registerSuccess") String success,
+                        @RequestParam(required = false, name = "continue") String continu) {
         return "login";
     }
 

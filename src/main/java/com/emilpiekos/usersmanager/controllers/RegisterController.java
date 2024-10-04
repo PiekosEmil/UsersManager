@@ -26,6 +26,11 @@ public class RegisterController {
     @PostMapping("/send-registration-form")
     public String register(@ModelAttribute("user") User user) {
         usersService.save(user);
-        return "redirect:/login?registerSuccess";
+        return "redirect:/register-success";
+    }
+
+    @GetMapping("/register-success")
+    public String registerSuccess() {
+        return "register-success";
     }
 }

@@ -40,15 +40,23 @@ public class UserController {
         String newPassword = user.getPassword();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
-        if (newPassword != null && newPassword.length() >= 8) {
-            usersService.setPasswordWhereUsername(user.getUsername(), user.getPassword());
-            return "redirect:/logout";
-        }
+        String email = user.getEmail();
+        Long phoneNumber = user.getPhoneNumber();
         if (firstName != null && !firstName.isEmpty()) {
             usersService.setFirstNameWhereUsername(user.getUsername(), firstName);
         }
         if (lastName != null && !lastName.isEmpty()) {
             usersService.setLastNameWhereUsername(user.getUsername(), lastName);
+        }
+        if (email != null && !email.isEmpty()) {
+            usersService.setEmailWhereUsername(user.getUsername(), email);
+        }
+        if (phoneNumber != null && !phoneNumber.toString().isEmpty()) {
+            usersService.setPhoneNumberWhereUsername(user.getUsername(), phoneNumber);
+        }
+        if (newPassword != null && newPassword.length() >= 8) {
+            usersService.setPasswordWhereUsername(user.getUsername(), user.getPassword());
+            return "redirect:/logout";
         }
         return "redirect:/";
     }

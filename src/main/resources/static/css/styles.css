@@ -14,11 +14,12 @@ body {
 }
 
 .card {
-    background: rgb(2,0,36);
+    border-color: transparent;
+    border-style: none;
     background: linear-gradient(48deg, rgba(2,0,36,1) 0%, rgba(21,6,77,0.8464635854341737) 45%, rgba(0,212,255,1) 100%);
 }
 
-div > h3 {
+div > h3, h1 , p{
     color: white;
 }
 

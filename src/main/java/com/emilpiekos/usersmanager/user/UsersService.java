@@ -45,6 +45,8 @@ public class UsersService {
         userToRegister.setFirstName(user.getFirstName());
         userToRegister.setLastName(user.getLastName());
         userToRegister.setRoles(new HashSet<>(List.of(new UserRole(userToRegister, Role.ROLE_USER))));
+        userToRegister.setEmail(user.getEmail());
+        userToRegister.setPhoneNumber(user.getPhoneNumber());
         usersRepository.save(userToRegister);
     }
 
@@ -59,5 +61,13 @@ public class UsersService {
     public void setPasswordWhereUsername(String username, String password) {
         String encoded = passwordEncoder.encode(password);
         usersRepository.setPasswordWhereUsername(username, encoded);
+    }
+
+    public void setEmailWhereUsername(String username, String email) {
+        usersRepository.setEmailWhereUsername(username, email);
+    }
+
+    public void setPhoneNumberWhereUsername(String username, Long phoneNumber) {
+        usersRepository.setPhoneNumberWhereUsername(username, phoneNumber);
     }
 }

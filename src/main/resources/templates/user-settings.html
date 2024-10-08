@@ -54,7 +54,7 @@
         <div class="d-flex justify-content-evenly">
             <div class="card w-50 p-3">
                 <div class="card-body">
-                    <form th:action="@{/save-changes}" method="post" th:object="${user}">
+                    <form th:action="@{/save-changes}" method="post" th:object="${userDto}">
                         <div class="mb-3">
                             <h3>User settings</h3>
                             <input hidden th:field="*{username}" th:value="currentUsername">

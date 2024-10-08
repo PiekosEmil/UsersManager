@@ -16,17 +16,20 @@
         <div class="d-flex justify-content-evenly">
             <div class="card w-50 p-3">
                 <div class="card-body">
-                    <form th:action="@{/send-registration-form}" method="post" th:object="${user}">
+                    <form th:action="@{/send-registration-form}" method="post" th:object="${userDto}">
                         <div class="mb-3">
                             <h3>Register</h3>
-                            <input th:field="*{username}" id="username" name="username" type="text" class="form-control" placeholder="Username" required
+                            <input th:field="*{username}" id="username" name="username" type="text" class="form-control" placeholder="Username" 
                                    autofocus>
-                        </div> <p id="username-status"></p>
+                        </div>
+                        <p id="username-status"></p>
+                        <p th:errors="*{username}" class="error">Username error</p>
                         <div class="mb-3">
                             <input th:field="*{password}" name="password" id="password" type="password" class="form-control"
-                                   placeholder="Password" onchange="checkLength();" required>
+                                   placeholder="Password" onchange="checkLength();">
                         </div>
                         <p id="validate"></p>
+                        <p th:errors="*{password}" class="error">Password errors</p>
                         <div class="mb-3">
                             <input id="passwordConfirmation" type="password" class="form-control"
                                    placeholder="Confirm your password" onchange="checkMatch();">
@@ -35,15 +38,19 @@
                         <div class="mb-3">
                             <input th:field="*{firstName}" type="text" class="form-control" placeholder="First name">
                         </div>
+                        <p th:errors="*{firstName}" class="error">First name error</p>
                         <div class="mb-3">
                             <input th:field="*{lastName}" type="text" class="form-control" placeholder="Last name">
                         </div>
+                        <p th:errors="*{lastName}" class="error">Last name error</p>
                         <div class="mb-3">
                             <input th:field="*{email}" type="email" class="form-control" placeholder="example@mail.com">
                         </div>
+                        <p th:errors="*{email}" class="error">Email error</p>
                         <div class="mb-3">
                             <input th:field="*{phoneNumber}" type="tel" class="form-control" placeholder="777 555 333">
                         </div>
+                        <p th:errors="*{phoneNumber}" class="error">Phone number error</p>
                         <div class="login-footer">
                             <button id="submitButton" type="submit" value="Register" class="btn btn-primary"
                                     onpointerover="submitCheck();" disabled>Register

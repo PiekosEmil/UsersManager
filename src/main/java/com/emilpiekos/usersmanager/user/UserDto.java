@@ -1,18 +1,8 @@
 package com.emilpiekos.usersmanager.user;
 
-import com.emilpiekos.usersmanager.role.UserRole;
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.util.Set;
-
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDto {
 
     @NotBlank(message = "Username is required")
     @Size(min = 2, max = 30, message = "Username must have 2 to 30 characters")
@@ -37,18 +27,6 @@ public class User {
     @NotNull(message = "Phone number is required")
     @Pattern(regexp = "[+][0-9]{1,3}-[0-9]{3}-[0-9]{3}-[0-9]{3,4}", message = "Phone number must match pattern +3-333-333-4444")
     private String phoneNumber;
-
-    @Nonnull
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRole> roles;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public @NotBlank(message = "Username is required") @Size(min = 2, max = 30, message = "Username must have 2 to 30 characters") String getUsername() {
         return username;
@@ -97,15 +75,4 @@ public class User {
     public void setPhoneNumber(@NotNull(message = "Phone number is required") @Pattern(regexp = "[+][0-9]{1,3}-[0-9]{3}-[0-9]{3}-[0-9]{3,4}", message = "Phone number must match pattern +3-333-333-4444") String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    @Nonnull
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(@Nonnull Set<UserRole> roles) {
-        this.roles = roles;
-    }
 }
-
-

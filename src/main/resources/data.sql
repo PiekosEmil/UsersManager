@@ -1,7 +1,7 @@
-INSERT INTO user(username, password)
-VALUES ('RalphDemolka', '{bcrypt}$2a$12$y7v0CrAsIxK4K3wHBJrx8e2Opm6R9UyKDBqWHC61Ktc/BuygfJ2w2'), -- prostehaslo
-       ('Bobber', '{bcrypt}$2a$12$8LlJA4PEy7Eb.0H1OkmXmuJ6hzdIlFtMoDKfbysfooQuSGF2SVtD6'), -- trudniejszehaslo
-       ('TestowyUser', '{bcrypt}$2a$12$OFKFoJrQQv0GFA9gL7v4HOpp59N5aCB2/cZoxHVEDZrtALxsn.r6.'); -- testowehaslo
+INSERT INTO user(username, password, first_name, last_name, email, phone_number)
+VALUES ('RalphDemolka', '{noop}prostehaslo', 'Jacek', 'Czekaj', 'jaca@wp.pl', '+48-222-222-222'),
+       ('Bobber', '{noop}trudnehaslo', 'John', 'Smith', 'john@wp.pl', '+48-333-333-333'),
+       ('TestowyUser', '{noop}testowehaslo', 'Alex', 'Root', 'root@wp.pl', '+48-444-444-444');
 
 INSERT INTO user_role(user_id, role)
 VALUES (1, 'ROLE_ADMIN'),

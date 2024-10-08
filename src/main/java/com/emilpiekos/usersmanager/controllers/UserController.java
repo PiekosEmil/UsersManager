@@ -1,6 +1,7 @@
 package com.emilpiekos.usersmanager.controllers;
 
 import com.emilpiekos.usersmanager.user.User;
+import com.emilpiekos.usersmanager.user.UserDto;
 import com.emilpiekos.usersmanager.user.UsersService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -29,30 +32,36 @@ public class UserController {
     @GetMapping("/user-settings")
     public String profileSettings(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = usersService.findByUsername(username).orElse(null);
-        model.addAttribute("currentUsername", username);
-        model.addAttribute("user", user);
-        return "user-settings";
+        Optional<User> user = usersService.findByUsername(username);
+        if (user.isPresent()) {
+            UserDto userDto = usersService.mapUserToUserDto(user.get());
+            model.addAttribute("currentUsername", username);
+            model.addAttribute("userDto", userDto);
+            return "user-settings";
+        } else {
+            return "redirect:/error-page";
+        }
     }
 
     @PostMapping("/save-changes")
-    public String saveChanges(@ModelAttribute("user") User user) {
-        String newPassword = user.getPassword();
-        String firstName = user.getFirstName();
-        String lastName = user.getLastName();
-        String email = user.getEmail();
-        Long phoneNumber = user.getPhoneNumber();
-        if (firstName != null && !firstName.isEmpty()) {
-            usersService.setFirstNameWhereUsername(user.getUsername(), firstName);
+    public String saveChanges(@ModelAttribute("userDto") UserDto userDto) {
+        User user = usersService.mapUserDtoToUser(userDto);
+        String newPassword = userDto.getPassword();
+        String newFirstName = userDto.getFirstName();
+        String newLastName = userDto.getLastName();
+        String newEmail = userDto.getEmail();
+        String newPhoneNumber = userDto.getPhoneNumber();
+        if (newFirstName != null && !newFirstName.isEmpty()) {
+            usersService.setFirstNameWhereUsername(user.getUsername(), newFirstName);
         }
-        if (lastName != null && !lastName.isEmpty()) {
-            usersService.setLastNameWhereUsername(user.getUsername(), lastName);
+        if (newLastName != null && !newLastName.isEmpty()) {
+            usersService.setLastNameWhereUsername(user.getUsername(), newLastName);
         }
-        if (email != null && !email.isEmpty()) {
-            usersService.setEmailWhereUsername(user.getUsername(), email);
+        if (newEmail != null && !newEmail.isEmpty()) {
+            usersService.setEmailWhereUsername(user.getUsername(), newEmail);
         }
-        if (phoneNumber != null && !phoneNumber.toString().isEmpty()) {
-            usersService.setPhoneNumberWhereUsername(user.getUsername(), phoneNumber);
+        if (newPhoneNumber != null && !newPhoneNumber.isEmpty()) {
+            usersService.setPhoneNumberWhereUsername(user.getUsername(), newPhoneNumber);
         }
         if (newPassword != null && newPassword.length() >= 8) {
             usersService.setPasswordWhereUsername(user.getUsername(), user.getPassword());
@@ -60,5 +69,4 @@ public class UserController {
         }
         return "redirect:/";
     }
-
 }

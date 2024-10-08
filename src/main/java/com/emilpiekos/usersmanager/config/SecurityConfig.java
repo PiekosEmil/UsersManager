@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/script/**").permitAll()
+                        .requestMatchers("/error-page").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/register-success").permitAll()
                         .requestMatchers("/send-registration-form").permitAll()

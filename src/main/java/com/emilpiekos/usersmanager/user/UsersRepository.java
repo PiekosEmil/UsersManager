@@ -44,5 +44,5 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update User u set u.phoneNumber = :phoneNumber where u.username = :username")
-    void setPhoneNumberWhereUsername(@Param("username") String username, @Param("phoneNumber") Long phoneNumber);
+    void setPhoneNumberWhereUsername(@Param("username") String username, @Param("phoneNumber") String phoneNumber);
 }

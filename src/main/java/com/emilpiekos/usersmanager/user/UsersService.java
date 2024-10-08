@@ -2,6 +2,7 @@ package com.emilpiekos.usersmanager.user;
 
 import com.emilpiekos.usersmanager.role.Role;
 import com.emilpiekos.usersmanager.role.UserRole;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,17 +37,8 @@ public class UsersService {
         usersRepository.deleteUserByUsername(username);
     }
 
-    public void save(User user) {
-        User userToRegister = new User();
-        userToRegister.setUsername(user.getUsername());
-        userToRegister.setPassword(
-                passwordEncoder.encode(user.getPassword()
-                ));
-        userToRegister.setFirstName(user.getFirstName());
-        userToRegister.setLastName(user.getLastName());
-        userToRegister.setRoles(new HashSet<>(List.of(new UserRole(userToRegister, Role.ROLE_USER))));
-        userToRegister.setEmail(user.getEmail());
-        userToRegister.setPhoneNumber(user.getPhoneNumber());
+    public void save(UserDto userDto) throws ConstraintViolationException {
+        User userToRegister = mapUserDtoToUser(userDto);
         usersRepository.save(userToRegister);
     }
 
@@ -67,7 +59,31 @@ public class UsersService {
         usersRepository.setEmailWhereUsername(username, email);
     }
 
-    public void setPhoneNumberWhereUsername(String username, Long phoneNumber) {
+    public void setPhoneNumberWhereUsername(String username, String phoneNumber) {
         usersRepository.setPhoneNumberWhereUsername(username, phoneNumber);
+    }
+
+    public User mapUserDtoToUser(UserDto userDto) {
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(encodedPassword);
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setRoles(new HashSet<>(List.of(new UserRole(user, Role.ROLE_USER))));
+        return user;
+    }
+
+    public UserDto mapUserToUserDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setPassword(user.getPassword());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setPhoneNumber(user.getPhoneNumber());
+        return userDto;
     }
 }

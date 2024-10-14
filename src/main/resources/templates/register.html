@@ -44,6 +44,10 @@
                         </div>
                         <p th:errors="*{lastName}" class="error">Last name error</p>
                         <div class="mb-3">
+                            <input th:field="*{address}" type="text" class="form-control" placeholder="London Rd, London, Great Britain">
+                        </div>
+                        <p th:errors="*{address}" class="error">Address error</p>
+                        <div class="mb-3">
                             <input th:field="*{email}" type="email" class="form-control" placeholder="example@mail.com">
                         </div>
                         <p th:errors="*{email}" class="error">Email error</p>

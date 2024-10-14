@@ -3,7 +3,6 @@ body {
 }
 
 #intro {
-    height: auto;
     background-image: url("https://getwallpapers.com/wallpaper/full/7/c/7/992715-widescreen-fractals-wallpaper-1920x1080-for-xiaomi.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -30,6 +29,7 @@ div > h3, h1 , p{
 }
 
 .mx-auto {
+    padding: 0;
     min-height: 100vh;
     height: auto;
     display: flex;
@@ -60,4 +60,11 @@ label {
 .error {
     text-size-adjust: 50%;
     color: red;
+}
+
+.weather {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: right;
 }

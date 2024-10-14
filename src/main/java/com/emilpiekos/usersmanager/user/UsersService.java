@@ -70,6 +70,7 @@ public class UsersService {
         user.setPassword(encodedPassword);
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
+        user.setAddress(userDto.getAddress());
         user.setEmail(userDto.getEmail());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setRoles(new HashSet<>(List.of(new UserRole(user, Role.ROLE_USER))));
@@ -82,6 +83,7 @@ public class UsersService {
         userDto.setPassword(user.getPassword());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
+        userDto.setAddress(user.getAddress());
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
         return userDto;
